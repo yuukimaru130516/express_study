@@ -5,12 +5,18 @@ var router = express.Router();
 
 /* about_us */
 router.get('/about_us', function(req, res, next) {
-  res.send('会社概要');
+  res.render('about_us');
 });
 
 /* flow */
 router.get('/flow', function(req, res, next) {
-  res.send('インテリアコーディネート');
+  res.render('flow');
+});
+
+
+/* cordinate */
+router.get('/cordinate', function(req, res, next) {
+  res.render('cordinate');
 });
 
 module.exports = router;
