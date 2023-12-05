@@ -8,9 +8,9 @@ var windowwidth = window.innerWidth || document.documentElement.clientWidth || 0
 			];
 		} else {
 			var responsiveImage = [//タブレットサイズ（768px）以下用の画像
-				{ src: './img/img_sp_01.jpg' },
-				{ src: './img/img_sp_02.jpg' },
-				{ src: './img/img_sp_03.jpg' }
+				{ src: './images/top1.jpg'},
+				{ src: './images/top2.jpg'},
+				{ src: './images/top3.jpg'}
 			];
 		}
 
@@ -26,3 +26,15 @@ $('.slider').vegas({
 		slides: responsiveImage,//画像設定を読む
 		//timer:false,// プログレスバーを非表示したい場合はこのコメントアウトを外してください
 	});
+
+
+// ハンバーガーメニューの設定
+$(".openbtn").click(function () {//ボタンがクリックされたら
+	$(this).toggleClass('active');//ボタン自身に activeクラスを付与し
+    $("#g-nav").toggleClass('panelactive');//ナビゲーションにpanelactiveクラスを付与
+});
+
+$("#g-nav a").click(function () {//ナビゲーションのリンクがクリックされたら
+    $(".openbtn").removeClass('active');//ボタンの activeクラスを除去し
+    $("#g-nav").removeClass('panelactive');//ナビゲーションのpanelactiveクラスも除去
+});

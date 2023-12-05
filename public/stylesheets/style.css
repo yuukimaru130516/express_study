@@ -8,27 +8,40 @@ body {
   .wf-sawarabigothic { font-family: "Sawarabi Gothic"; }
 }
 
+/* aタグ設定 */
 a {
   text-decoration: none;
   color: #2b2b2b;
 }
 
+/* リスト設定 */
+ul {
+  list-style-type: none;
+}
+
+/* フォント設定 */
 .wf-sawarabigothic { font-family: "Sawarabi Gothic"; }
 
 /* header設定 */
 .header {
   background-color: #f9f5f2;
+  z-index: 999; 
   width: 100%;
   height: 100px;
   display: flex;
+  position: fixed;
 }
 
 .header .logo_area{
-  width: 40%;
+  width: 20%;
 }
 
 .header .menu_area {
-  width: 60%;
+  width: 70%;
+}
+
+.header .open_btn_area {
+  width: 10%;
 }
 
 .header img {
@@ -37,7 +50,6 @@ a {
 
 
 .header ul {
-  list-style-type: none;
   height: 100px;
   margin: 0px;
   display: flex;
@@ -57,11 +69,194 @@ a {
   text-decoration: underline;
 }
 
+/* ハンバーガーメニュー */
+/*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
+.openbtn{
+	/*ボタン内側の基点となるためrelativeを指定。
+追従するナビゲーションの場合はfixed＋top、rightといった位置をセットで指定*/
+	position: relative;
+	background:#DFD8C8;
+	cursor: pointer;
+    width: 50px;
+    height:50px;
+	border-radius: 5px;
+  z-index: 9999;/*ボタンを最前面に*/
+  position: fixed;
+  top: 25px;
+  right: 25px;
+
+}
+
+/*ボタン内側*/
+.openbtn span{
+    display: inline-block;
+    transition: all .4s;/*アニメーションの設定*/
+    position: absolute;
+    left: 14px;
+    height: 3px;
+    border-radius: 2px;
+	background: #666;
+  	width: 45%;
+  }
+
+.openbtn span:nth-of-type(1) {
+	top:15px;	
+}
+
+.openbtn span:nth-of-type(2) {
+	top:23px;
+}
+
+.openbtn span:nth-of-type(3) {
+	top:31px;
+}
+
+/*activeクラスが付与されると線が回転して×に*/
+
+.openbtn.active span:nth-of-type(1) {
+  top: 18px;
+  left: 18px;
+  transform: translateY(6px) rotate(-45deg);
+  width: 30%;
+}
+
+.openbtn.active span:nth-of-type(2) {
+opacity: 0;/*真ん中の線は透過*/
+}
+
+.openbtn.active span:nth-of-type(3){
+  top: 30px;
+  left: 18px;
+  transform: translateY(-6px) rotate(45deg);
+  width: 30%;
+}
+
+
+/*========= ナビゲーションのためのCSS ===============*/
+
+#g-nav{
+  /*position:fixed;にし、z-indexの数値を大きくして前面へ*/
+  position:fixed;
+  z-index: 999;
+  /*ナビのスタート位置と形状*/
+top:0;
+  right: -120%;
+width:100%;
+  height: 100vh;/*ナビの高さ*/
+background:#999;
+  /*動き*/
+transition: all 0.6s;
+}
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive{
+  right: 0;
+}
+
+/*ナビゲーションの縦スクロール*/
+#g-nav.panelactive #g-nav-list{
+  /*ナビの数が増えた場合縦スクロール*/
+  position: fixed;
+  z-index: 999; 
+  width: 100%;
+  height: 100vh;/*表示する高さ*/
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*ナビゲーション*/
+#g-nav ul {
+  /*ナビゲーション天地中央揃え*/
+  position: absolute;
+  z-index: 999;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+/*リストのレイアウト設定*/
+
+#g-nav li{
+list-style: none;
+  text-align: center;
+}
+
+#g-nav li a{
+color: #333;
+text-decoration: none;
+padding:10px;
+display: block;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+font-weight: bold;
+}
+
+
 
 /* top page設定 */
 .slider {
   width: 100%;
   height: 100vh
+}
+
+
+/*スクロールダウン全体の場所*/
+.scrolldown {
+  /*描画位置※位置は適宜調整してください*/
+position:absolute;
+bottom:1%;
+right:10%;
+  /*矢印の動き1秒かけて永遠にループ*/
+animation: arrowmove 1s ease-in-out infinite;
+}
+
+/*下からの距離が変化して全体が下→上→下に動く*/
+@keyframes arrowmove{
+    0%{bottom:1%;}
+    50%{bottom:3%;}
+   100%{bottom:1%;}
+}
+
+/*Scrollテキストの描写*/
+.scrolldown span{
+  /*描画位置*/
+position: absolute;
+left:-20px;
+bottom:10px;
+  /*テキストの形状*/
+color: #2b2b2b;
+font-size: 0.7rem;
+letter-spacing: 0.05em;
+/*縦書き設定*/
+-ms-writing-mode: tb-rl;
+  -webkit-writing-mode: vertical-rl;
+  writing-mode: vertical-rl;
+}
+
+/* 矢印の描写 */
+.scrolldown::before {
+  content: "";
+  /*描画位置*/
+  position: absolute;
+  bottom: 0;
+  right: -6px;
+  /*矢印の形状*/
+  width: 1px;
+  height: 20px;
+  background: #2b2b2b;
+  transform: skewX(-31deg);
+}
+
+.scrolldown::after{
+content:"";
+  /*描画位置*/
+position: absolute;
+bottom:0;
+right:0;
+  /*矢印の形状*/
+width:1px;
+height: 50px;
+background:#2b2b2b;
 }
 
 
@@ -95,12 +290,13 @@ a {
 
 .top_cordinate_1, .top_cordinate_2, .top_cordinate_3 {
   display: flex;
+  margin-bottom: 50px;
 }
 
 .top_cordinate_1 img, .top_cordinate_2 img, .top_cordinate_3 img{
-  width: 50%;
+  width: 35%;
   margin: 0px 1%;
-  border-radius: 10%;
+  border-radius:10%;
   border: 2px solid #666;
 
 }
@@ -200,4 +396,34 @@ a {
   text-align: center;
   margin: 0px;
   padding-top: 50px;
+}
+
+
+
+/* レスポンシブ対応 */
+
+@media screen and (max-width: 959px) {
+  /* 959px以下に適用されるCSS（タブレット用） */
+  /* メニューはハンバーガーメニューで代用 */
+  .header .menu_area {
+    display: none;
+  }
+
+  .top_cordinate_1, .top_cordinate_2, .top_cordinate_3 {
+    display: flex;
+    flex-direction: column;
+  }
+  .top_cordinate_1 img, .top_cordinate_2 img, .top_cordinate_3 img{
+    width: 100%;
+    border-radius: 0%;
+    border: none;
+  }
+
+  /* 要素の並び替え */
+  .top_cordinate_2 p {order: 1;}
+
+  .top_cordinate_1 p, .top_cordinate_2 p, .top_cordinate_3 p{
+    width: 80%;
+    margin: 50px auto;
+  }
 }
